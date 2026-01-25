@@ -3,66 +3,611 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seth Lofgreen's Marketing Extravaganza</title>
+    <title>sethlofgreen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --neon-pink: #ff00ff;
+            --neon-cyan: #00ffff;
+            --neon-purple: #bf00ff;
+            --neon-blue: #0066ff;
+            --dark-bg: #0a0a0f;
+            --darker-bg: #050508;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
-        }
-        h1 {
-            font-size: 3em;
-            text-align: center;
-            margin-bottom: 0.5em;
-        }
-        h2 {
-            font-size: 2em;
-            text-align: center;
-            margin-bottom: 0.5em;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 1em;
-        }
-        .subtitle {
-            text-align: center;
-            font-style: italic;
-            font-size: 1.5em;
-        }
-        .content {
-            margin-top: 1.5em;
-            text-align: justify;
-            font-size: 1.2em;
-        }
-        .cta {
-            display: block;
-            text-align: center;
-            background-color: #ff6347;
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
             color: #fff;
-            padding: 1em;
-            border-radius: 5px;
-            text-decoration: none;
-            margin: 2em auto;
-            width: 50%;
-            font-size: 1.5em;
-            transition: background-color 0.3s;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
         }
+
+        /* Animated grid background */
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: gridMove 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes gridMove {
+            0% { transform: perspective(500px) rotateX(60deg) translateY(0); }
+            100% { transform: perspective(500px) rotateX(60deg) translateY(50px); }
+        }
+
+        /* Floating particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--neon-cyan);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+
+        /* Scanlines overlay */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        /* Main content */
+        .container {
+            position: relative;
+            z-index: 10;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        /* Glitch effect for main title */
+        .title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(3rem, 10vw, 8rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            color: #fff;
+            text-shadow:
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan),
+                0 0 40px var(--neon-cyan),
+                0 0 80px var(--neon-cyan);
+            animation: flicker 3s infinite alternate;
+            letter-spacing: 0.1em;
+        }
+
+        .title::before,
+        .title::after {
+            content: 'sethlofgreen';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .title::before {
+            color: var(--neon-pink);
+            animation: glitch-1 0.3s infinite linear alternate-reverse;
+            clip-path: polygon(0 0, 100% 0, 100% 35%, 0 35%);
+            text-shadow:
+                0 0 10px var(--neon-pink),
+                0 0 20px var(--neon-pink);
+        }
+
+        .title::after {
+            color: var(--neon-cyan);
+            animation: glitch-2 0.3s infinite linear alternate-reverse;
+            clip-path: polygon(0 65%, 100% 65%, 100% 100%, 0 100%);
+            text-shadow:
+                0 0 10px var(--neon-cyan),
+                0 0 20px var(--neon-cyan);
+        }
+
+        @keyframes glitch-1 {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(-3px); }
+            40% { transform: translateX(3px); }
+            60% { transform: translateX(-1px); }
+            80% { transform: translateX(2px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes glitch-2 {
+            0% { transform: translateX(0); }
+            20% { transform: translateX(3px); }
+            40% { transform: translateX(-3px); }
+            60% { transform: translateX(1px); }
+            80% { transform: translateX(-2px); }
+            100% { transform: translateX(0); }
+        }
+
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                text-shadow:
+                    0 0 10px var(--neon-cyan),
+                    0 0 20px var(--neon-cyan),
+                    0 0 40px var(--neon-cyan),
+                    0 0 80px var(--neon-cyan);
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+            }
+        }
+
+        /* Subtitle */
+        .subtitle {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.9rem, 2.5vw, 1.3rem);
+            font-weight: 400;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 1rem;
+            color: var(--neon-pink);
+            text-shadow: 0 0 10px var(--neon-pink);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.5s forwards;
+            position: relative;
+        }
+
+        .subtitle::after {
+            content: '_';
+            animation: cursorBlink 1s infinite;
+            margin-left: 0.2em;
+        }
+
+        @keyframes cursorBlink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Tagline */
+        .tagline {
+            font-size: clamp(1rem, 2.5vw, 1.3rem);
+            max-width: 600px;
+            text-align: center;
+            margin-top: 2rem;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.8);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.8s forwards;
+        }
+
+        .tagline .highlight {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .tagline .accent {
+            color: var(--neon-pink);
+            font-style: italic;
+            text-shadow: 0 0 8px var(--neon-pink);
+        }
+
+        /* Brand tags */
+        .brands {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1s forwards;
+        }
+
+        .brand-tag {
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            font-weight: 400;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            background: rgba(0, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.7);
+            transition: all 0.3s ease;
+        }
+
+        .brand-tag:hover {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 255, 255, 0.15);
+            color: var(--neon-cyan);
+            text-shadow: 0 0 10px var(--neon-cyan);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+
+        /* Location */
+        .location {
+            margin-top: 2rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.5);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.6s forwards;
+        }
+
+        .location-icon {
+            color: var(--neon-pink);
+            animation: blink 2s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50%, 100% { opacity: 1; }
+            25%, 75% { opacity: 0.3; }
+        }
+
+        /* Social links */
+        .social-links {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.3s forwards;
+        }
+
+        .social-link {
+            position: relative;
+            padding: 1rem 2rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #fff;
+            background: transparent;
+            border: 2px solid var(--neon-cyan);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            background: var(--neon-cyan);
+            color: var(--dark-bg);
+            box-shadow:
+                0 0 20px var(--neon-cyan),
+                0 0 40px var(--neon-cyan),
+                inset 0 0 20px rgba(0, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        .social-link.pink {
+            border-color: var(--neon-pink);
+        }
+
+        .social-link.pink::before {
+            background: linear-gradient(90deg, transparent, var(--neon-pink), transparent);
+        }
+
+        .social-link.pink:hover {
+            background: var(--neon-pink);
+            box-shadow:
+                0 0 20px var(--neon-pink),
+                0 0 40px var(--neon-pink),
+                inset 0 0 20px rgba(255, 0, 255, 0.3);
+        }
+
+        .social-link.purple {
+            border-color: var(--neon-purple);
+        }
+
+        .social-link.purple::before {
+            background: linear-gradient(90deg, transparent, var(--neon-purple), transparent);
+        }
+
+        .social-link.purple:hover {
+            background: var(--neon-purple);
+            box-shadow:
+                0 0 20px var(--neon-purple),
+                0 0 40px var(--neon-purple),
+                inset 0 0 20px rgba(191, 0, 255, 0.3);
+        }
+
+        /* CTA Button */
+        .cta-container {
+            margin-top: 2.5rem;
+            opacity: 0;
+            animation: fadeIn 1s ease-out 1.5s forwards;
+        }
+
+        .cta {
+            position: relative;
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--dark-bg);
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink));
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -3px;
+            left: -3px;
+            right: -3px;
+            bottom: -3px;
+            background: linear-gradient(135deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0.7;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+
         .cta:hover {
-            background-color: #ff4500;
+            transform: scale(1.05);
+            box-shadow:
+                0 0 30px var(--neon-cyan),
+                0 0 60px var(--neon-pink);
+        }
+
+        /* Decorative corners */
+        .corner {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            z-index: 50;
+        }
+
+        .corner::before,
+        .corner::after {
+            content: '';
+            position: absolute;
+            background: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .corner.top-left { top: 20px; left: 20px; }
+        .corner.top-left::before { width: 50px; height: 2px; top: 0; left: 0; }
+        .corner.top-left::after { width: 2px; height: 50px; top: 0; left: 0; }
+
+        .corner.top-right { top: 20px; right: 20px; }
+        .corner.top-right::before { width: 50px; height: 2px; top: 0; right: 0; }
+        .corner.top-right::after { width: 2px; height: 50px; top: 0; right: 0; }
+
+        .corner.bottom-left { bottom: 20px; left: 20px; }
+        .corner.bottom-left::before { width: 50px; height: 2px; bottom: 0; left: 0; }
+        .corner.bottom-left::after { width: 2px; height: 50px; bottom: 0; left: 0; }
+
+        .corner.bottom-right { bottom: 20px; right: 20px; }
+        .corner.bottom-right::before { width: 50px; height: 2px; bottom: 0; right: 0; }
+        .corner.bottom-right::after { width: 2px; height: 50px; bottom: 0; right: 0; }
+
+        /* Status bar */
+        .status-bar {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.7rem;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 5px var(--neon-cyan);
+            letter-spacing: 0.3em;
+            opacity: 0.7;
+            z-index: 50;
+        }
+
+        .status-bar::before {
+            content: '[ ';
+        }
+
+        .status-bar::after {
+            content: ' ]';
+        }
+
+        /* Mobile adjustments */
+        @media (max-width: 768px) {
+            .social-links {
+                gap: 1rem;
+            }
+
+            .social-link {
+                padding: 0.8rem 1.5rem;
+                font-size: 0.8rem;
+            }
+
+            .corner {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="grid-bg"></div>
+
+    <div class="particles" id="particles"></div>
+
+    <div class="scanlines"></div>
+
+    <div class="corner top-left"></div>
+    <div class="corner top-right"></div>
+    <div class="corner bottom-left"></div>
+    <div class="corner bottom-right"></div>
+
     <div class="container">
-        <h1>Hey, ChatGPT, make Seth Lofgreen a portfolio site in the voice of Ryan Reynolds</h1>
-        <h2 class="subtitle">Deadpool-approved marketing strategies</h2>        
-        <p class="content"> Seth Lofgreen is like the Domino of paid media – the lucky charm in a world filled with digital chaos. With 13 years of experience under their utility belt, they've been navigating the tricky terrain of paid advertising with the agility of Deadpool and the wit of, well, me. From Facebook Ads to Amazon Advertising, Seth Lofgreen has been making waves in the industry, consistently delivering results that would make even Thanos snap his fingers in approval.</p>
-        <p class="content">Whether it's Facebook, Amazon, or Shopify, Seth has got it all covered like a cozy Pikachu onesie. They're a data-driven strategist with a laser focus on ROI, which means they know how to make every dollar count. And just like how I have a knack for sarcastic humor, Seth has a knack for crafting a compelling brand strategy that converts – all while maintaining a sense of humor (if the situation calls for it).</p>
-        <p class="content">But let's not forget about the technical side of things. As an ecommerce expert and a maestro in managing ad campaigns, Seth has the ability to find the sweet spot between targeting and budgeting – kind of like me finding the sweet spot between comedy and action.</p>
-        <p class="content">If you're looking for someone who can kick some serious digital butt and get your paid media campaigns performing like Deadpool at the box office, Seth is your go-to expert. So, don't hesitate to reach out and make your next marketing endeavor a blockbuster success.</p>
-        <p class="content">In conclusion, if I were to trust anyone to manage my paid media campaigns, it would be Seth. But since I'm just an actor who loves to talk in the third person, I'll leave that up to you. Just remember, with great marketing power comes great revenue responsibility, and Seth has got your back.</p>
-        <a href="mailto:slofgreen@gmail.com" class="cta">Contact Me Now!</a>        
+        <h1 class="title">sethlofgreen</h1>
+        <p class="subtitle">VP of Growth // ByHeart</p>
+
+        <p class="tagline">
+            Leading <span class="highlight">award-winning work</span> for the world's most loved brands.<br>
+            From <span class="highlight">Reebok</span> to <span class="highlight">Xcel Energy</span> &mdash;
+            big thinker, bold executor, fluent in data <span class="accent">(y en espa&ntilde;ol)</span>.
+        </p>
+
+        <div class="brands">
+            <span class="brand-tag">ByHeart</span>
+            <span class="brand-tag">Reebok</span>
+            <span class="brand-tag">Xcel Energy</span>
+            <span class="brand-tag">Voltage Ad+Design</span>
+        </div>
+
+        <div class="social-links">
+            <a href="https://github.com/sethlofgreen" class="social-link" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://linkedin.com/in/sethlofgreen" class="social-link pink" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://twitter.com/sethlofgreen" class="social-link purple" target="_blank" rel="noopener">Twitter</a>
+        </div>
+
+        <div class="cta-container">
+            <a href="mailto:slofgreen@gmail.com" class="cta">Let's Connect</a>
+        </div>
+
+        <div class="location">
+            <span class="location-icon">&#9670;</span> Salt Lake City, Utah
+        </div>
     </div>
+
+    <div class="status-bar">
+        <span id="status">SYSTEM ONLINE</span>
+    </div>
+
+    <script>
+        // Create floating particles
+        const particlesContainer = document.getElementById('particles');
+        const particleCount = 30;
+
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 15 + 's';
+            particle.style.animationDuration = (10 + Math.random() * 10) + 's';
+
+            // Random colors
+            const colors = ['#00ffff', '#ff00ff', '#bf00ff', '#0066ff'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.background = color;
+            particle.style.boxShadow = `0 0 10px ${color}, 0 0 20px ${color}`;
+
+            particlesContainer.appendChild(particle);
+        }
+
+        // Status bar messages
+        const messages = [
+            'SYSTEM ONLINE',
+            'CONNECTING...',
+            'DATA STREAM ACTIVE',
+            'NEURAL LINK ESTABLISHED',
+            'AWAITING INPUT',
+            'PROCESSING...',
+            'UPLINK STABLE'
+        ];
+
+        const statusElement = document.getElementById('status');
+        let messageIndex = 0;
+
+        setInterval(() => {
+            messageIndex = (messageIndex + 1) % messages.length;
+            statusElement.style.opacity = '0';
+            setTimeout(() => {
+                statusElement.textContent = messages[messageIndex];
+                statusElement.style.opacity = '1';
+            }, 200);
+        }, 3000);
+
+        // Add subtle mouse parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const x = (e.clientX / window.innerWidth - 0.5) * 20;
+            const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+            document.querySelector('.title').style.transform =
+                `translate(${x * 0.5}px, ${y * 0.5}px)`;
+        });
+
+        // Glitch effect on hover
+        const title = document.querySelector('.title');
+        title.addEventListener('mouseenter', () => {
+            title.style.animation = 'none';
+            setTimeout(() => {
+                title.style.animation = '';
+            }, 100);
+        });
+    </script>
 </body>
 </html>
