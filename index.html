@@ -212,6 +212,63 @@
             51%, 100% { opacity: 0; }
         }
 
+        /* AI Callout */
+        .ai-callout {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(90deg,
+                transparent,
+                rgba(0, 255, 255, 0.1),
+                rgba(255, 0, 255, 0.1),
+                transparent);
+            border-top: 1px solid var(--neon-cyan);
+            border-bottom: 1px solid var(--neon-pink);
+            opacity: 0;
+            animation: fadeIn 1s ease-out 0.6s forwards, aiPulse 3s ease-in-out infinite;
+        }
+
+        .ai-text {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(0.8rem, 2vw, 1.1rem);
+            font-weight: 700;
+            letter-spacing: 0.3em;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink), var(--neon-cyan));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s linear infinite;
+        }
+
+        .ai-icon {
+            color: var(--neon-cyan);
+            font-size: 1.2rem;
+            animation: spinSlow 4s linear infinite;
+            text-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        @keyframes spinSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes aiPulse {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(0, 255, 255, 0.2), 0 0 40px rgba(255, 0, 255, 0.1);
+            }
+            50% {
+                box-shadow: 0 0 30px rgba(0, 255, 255, 0.4), 0 0 60px rgba(255, 0, 255, 0.2);
+            }
+        }
+
         @keyframes fadeIn {
             to { opacity: 1; }
         }
@@ -513,19 +570,25 @@
 
     <div class="container">
         <h1 class="title">sethlofgreen</h1>
-        <p class="subtitle">VP of Growth // ByHeart</p>
+        <p class="subtitle">VP Growth // Owlet</p>
+
+        <div class="ai-callout">
+            <span class="ai-icon">&#9671;</span>
+            <span class="ai-text">AI-POWERED GROWTH STRATEGIST</span>
+            <span class="ai-icon">&#9671;</span>
+        </div>
 
         <p class="tagline">
             Leading <span class="highlight">award-winning work</span> for the world's most loved brands.<br>
-            From <span class="highlight">Reebok</span> to <span class="highlight">Xcel Energy</span> &mdash;
+            From <span class="highlight">Adidas</span> to <span class="highlight">Chipotle</span> &mdash;
             big thinker, bold executor, fluent in data <span class="accent">(y en espa&ntilde;ol)</span>.
         </p>
 
         <div class="brands">
             <span class="brand-tag">ByHeart</span>
-            <span class="brand-tag">Reebok</span>
-            <span class="brand-tag">Xcel Energy</span>
-            <span class="brand-tag">Voltage Ad+Design</span>
+            <span class="brand-tag">Fjallraven</span>
+            <span class="brand-tag">Owlet</span>
+            <span class="brand-tag">VOLTAGE AD + DESIGN</span>
         </div>
 
         <div class="social-links">
@@ -535,7 +598,7 @@
         </div>
 
         <div class="cta-container">
-            <a href="mailto:slofgreen@gmail.com" class="cta">Let's Connect</a>
+            <a href="https://linkedin.com/in/sethlofgreen" class="cta" target="_blank" rel="noopener">Let's Connect</a>
         </div>
 
         <div class="location">
