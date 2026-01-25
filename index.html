@@ -540,6 +540,18 @@
             content: ' ]';
         }
 
+        /* Settled state - stop animations */
+        .title.settled {
+            animation: none !important;
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan), 0 0 40px var(--neon-cyan);
+        }
+
+        .title.settled::before,
+        .title.settled::after {
+            animation: none !important;
+            opacity: 0;
+        }
+
         /* Mobile adjustments */
         @media (max-width: 768px) {
             .container {
@@ -688,6 +700,11 @@
                 title.style.animation = '';
             }, 100);
         });
+
+        // Stop distracting animations after 5 seconds
+        setTimeout(() => {
+            title.classList.add('settled');
+        }, 5000);
     </script>
 </body>
 </html>
